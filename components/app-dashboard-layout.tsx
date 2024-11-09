@@ -30,11 +30,11 @@ export async function Layout({
 }) {
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
-      <aside className="hidden md:flex w-64 flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+      <div className="flex w-48 flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
         <div className="p-4">
           <Link href="/" className="flex items-center space-x-2">
             <MortarBoardIcon className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold text-primary">
+            <span className="text-xl font-bold text-primary">
               Code Teacher
             </span>
           </Link>
@@ -50,14 +50,17 @@ export async function Layout({
               <span>{item.label}</span>
             </Link>
           ))}
+          <br />
+          <br />
+          <br />
           <div className="h-px mt-16 mb-4 bg-gray-200 dark:bg-gray-700" />
-          <div className="fixed bottom-100">
+          <div className="fixed bottom-100 text-sm">
             <SidebarProvider defaultOpen={true}>
               {user && <SidebarUserNav user={user} />}
             </SidebarProvider>
           </div>
         </nav>
-      </aside>
+      </div>
       <div className="flex-1 flex flex-col overflow-hidden">
         <main className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 p-4 md:p-6">
           {children}
