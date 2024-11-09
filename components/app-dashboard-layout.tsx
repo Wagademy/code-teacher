@@ -8,9 +8,7 @@ import {
 } from '@/components/icons';
 import { type User } from 'next-auth';
 import { SidebarUserNav } from './custom/sidebar-user-nav';
-import {
-  SidebarProvider,
-} from './ui/sidebar';
+import { SidebarProvider } from './ui/sidebar';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboardIcon },
@@ -34,27 +32,22 @@ export async function Layout({
         <div className="p-4">
           <Link href="/" className="flex items-center space-x-2">
             <MortarBoardIcon className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold text-primary">
-              Code Teacher
-            </span>
+            <span className="text-xl font-bold text-primary">Code Teacher</span>
           </Link>
         </div>
-        <nav className="flex-1 overflow-y-auto p-4">
+        <nav className="flex-1 overflow-y-auto p-4 ">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-                className={`flex items-center w-full mb-2 text-left hover:bg-green-100 dark:hover:bg-green-700 p-2 rounded-lg transition-colors duration-200 ${currentPath === item.href ? 'bg-green-100 dark:bg-green-700' : ''}`}
+              className={`flex items-center w-full mb-2 text-left hover:bg-green-100 dark:hover:bg-green-700 p-2 rounded-lg transition-colors duration-200 ${currentPath === item.href ? 'bg-green-100 dark:bg-green-700' : ''}`}
             >
               <item.icon className="mr-2 h-4 w-4" />
               <span>{item.label}</span>
             </Link>
           ))}
-          <br />
-          <br />
-          <br />
-          <div className="h-px mt-16 mb-4 bg-gray-200 dark:bg-gray-700" />
           <div className="fixed bottom-100 text-sm">
+            <div className="h-px mb-4 bg-gray-200 dark:bg-gray-700" />
             <SidebarProvider defaultOpen={true}>
               {user && <SidebarUserNav user={user} />}
             </SidebarProvider>
