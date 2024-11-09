@@ -1,13 +1,19 @@
-'use client'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Progress } from '@/components/ui/progress'
-import { getCurrentUser } from '@/lib/session'
-import { getUserProgress } from '@/lib/user-data'
-
-export async function BlockPage() {
-  const user = await getCurrentUser()
-  const progress = await getUserProgress(user.id)
+export function BlockPage() {
+  const user = { id: "1" };
+  const progress = {
+    overallProgress: 50,
+    completedExercises: 10,
+    totalExercises: 20,
+    completedProjects: 5,
+    totalProjects: 10,
+    skills: [
+      { name: "JavaScript", progress: 75 },
+      { name: "Python", progress: 60 },
+    ],
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -19,7 +25,9 @@ export async function BlockPage() {
           </CardHeader>
           <CardContent>
             <Progress value={progress.overallProgress} className="w-full" />
-            <p className="mt-2 text-center">{progress.overallProgress}% Complete</p>
+            <p className="mt-2 text-center">
+              {progress.overallProgress}% Complete
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -27,8 +35,13 @@ export async function BlockPage() {
             <CardTitle>Completed Work</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Exercises: {progress.completedExercises} / {progress.totalExercises}</p>
-            <p>Projects: {progress.completedProjects} / {progress.totalProjects}</p>
+            <p>
+              Exercises: {progress.completedExercises} /{" "}
+              {progress.totalExercises}
+            </p>
+            <p>
+              Projects: {progress.completedProjects} / {progress.totalProjects}
+            </p>
           </CardContent>
         </Card>
         <Card className="md:col-span-2">
@@ -46,5 +59,5 @@ export async function BlockPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

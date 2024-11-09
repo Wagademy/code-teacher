@@ -1,14 +1,30 @@
-'use client'
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { getCurrentUser } from '@/lib/session'
-import { getUserProjects } from '@/lib/user-data'
-
-export async function BlockPage() {
-  const user = await getCurrentUser()
-  const projects = await getUserProjects(user.id)
+export function BlockPage() {
+  const user = { id: "1" };
+  const projects = [
+    {
+      id: "1",
+      title: "Project 1",
+      description: "Description of Project 1",
+    },
+  ];
 
   return (
     <div className="container mx-auto p-4">
@@ -41,5 +57,5 @@ export async function BlockPage() {
         ))}
       </div>
     </div>
-  )
+  );
 }

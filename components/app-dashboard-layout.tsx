@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/components-theme-toggle";
 import {
   MortarBoardIcon,
   LayoutDashboardIcon,
@@ -8,8 +7,8 @@ import {
   BarChartIcon,
   LayoutIcon,
   UserIcon,
-} from "@/components/components-icons";
-import { NavLink } from "@/components/components-nav-link";
+} from "@/components/icons";
+import { NavLink } from "@/components/nav-link";
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboardIcon },
@@ -27,7 +26,7 @@ export async function Layout({ children }: { children: React.ReactNode }) {
         <div className="p-4">
           <Link href="/" className="flex items-center space-x-2">
             <MortarBoardIcon className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold text-primary">Wagademy</span>
+            <span className="text-2xl font-bold text-primary">Code Teacher</span>
           </Link>
         </div>
         <nav className="flex-1 overflow-y-auto p-4">
@@ -42,9 +41,6 @@ export async function Layout({ children }: { children: React.ReactNode }) {
             </NavLink>
           ))}
         </nav>
-        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-          <ThemeToggle />
-        </div>
       </aside>
       <div className="flex-1 flex flex-col overflow-hidden">
         <header className="h-16 md:h-20 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4 md:px-6">
