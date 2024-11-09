@@ -24,14 +24,14 @@ import { Textarea } from '../ui/textarea';
 
 const suggestedActions = [
   {
-    title: 'What is the weather',
-    label: 'in San Francisco?',
-    action: 'What is the weather in San Francisco?',
+    title: 'How to code',
+    label: 'with python?',
+    action: 'How to code with python?',
   },
   {
-    title: 'Help me draft an essay',
-    label: 'about Silicon Valley',
-    action: 'Help me draft a short essay about Silicon Valley',
+    title: 'Help me to code an app',
+    label: 'for an e-commerce website',
+    action: 'Help me to code an app for an e-commerce website',
   },
 ];
 
@@ -116,7 +116,7 @@ export function MultimodalInput({
   const [uploadQueue, setUploadQueue] = useState<Array<string>>([]);
 
   const submitForm = useCallback(() => {
-    window.history.replaceState({}, '', `/chat/${chatId}`);
+    window.history.replaceState({}, '', `/tutor/chat/${chatId}`);
 
     handleSubmit(undefined, {
       experimental_attachments: attachments,
@@ -209,7 +209,7 @@ export function MultimodalInput({
                 <Button
                   variant="ghost"
                   onClick={async () => {
-                    window.history.replaceState({}, '', `/chat/${chatId}`);
+                    window.history.replaceState({}, '', `/tutor/chat/${chatId}`);
 
                     append({
                       role: 'user',
