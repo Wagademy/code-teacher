@@ -13,7 +13,6 @@ interface PageProps {
 
 export default async function Page({ params }: PageProps) {
   const session = await auth();
-  /* @next-codemod-ignore */
   const id = await params.id;
   
   if (!session?.user) {
