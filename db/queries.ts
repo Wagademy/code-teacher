@@ -509,3 +509,35 @@ export async function deleteShowcaseById({ id }: { id: string }) {
     throw error;
   }
 }
+
+export async function getExercisesCountByUserId({ id }: { id: string }) {
+  try {
+    const result = await db
+      .select({ count: sql<number>`count(${exercise.id})` })
+      .from(exercise)
+      .innerJoin(lesson, eq(exercise.lessonId, lesson.id))
+      .where(eq(lesson.userId, id));
+
+    return Number(result[0]?.count) || 0;
+  } catch (error) {
+    console.error('Failed to get exercises count by user id from database');
+    throw error;
+  }
+}
+
+export async function getProjectsCountByUserId({ id }: { id: string }) {
+  try {
+    const lessons = await getLessonsByUserId({ userId: id });
+    let exercisesCount = 0;
+    for (const lesson of lessons) {
+      const exercises = await getExercisesByLessonId({ id: lesson.id });
+      exercisesCount += exercises.filter(
+        (exercise) => exercise.isCompleted
+      ).length;
+    }
+    return exercisesCount;
+  } catch (error) {
+    console.error('Failed to get projects count by user id from database');
+    throw error;
+  }
+}

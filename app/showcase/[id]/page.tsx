@@ -8,12 +8,18 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-export default async function ShowcasePage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const showcase = await getShowcaseById({ id: params.id });
+interface PageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
+export default async function ShowcasePage(props: PageProps) {
+  const params = await props.params;
+
+  const id = await params.id;
+
+  const showcase = await getShowcaseById({ id });
 
   const showcaseUser = (await getUserById({ id: showcase.userId }))[0];
 

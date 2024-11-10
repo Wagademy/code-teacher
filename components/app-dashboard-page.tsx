@@ -6,6 +6,8 @@ type BlockPageProps = {
   messagesCount: number;
   topUsersByMessageCount: { email: string; messageCount: number }[];
   userEmail: string;
+  exercisesCount: number;
+  projectsCount: number;
 };
 
 export function BlockPage({
@@ -13,25 +15,9 @@ export function BlockPage({
   messagesCount,
   topUsersByMessageCount,
   userEmail,
+  exercisesCount,
+  projectsCount,
 }: BlockPageProps) {
-  const exercises = [
-    {
-      name: 'JavaScript Basics',
-      progress: 75,
-      lastAccessed: '2 days ago',
-    },
-    {
-      name: 'React Components',
-      progress: 25,
-      lastAccessed: '5 days ago',
-    },
-    {
-      name: 'API Integration',
-      progress: 50,
-      lastAccessed: '1 week ago',
-    },
-  ];
-
   return (
     <div className="container mx-auto p-4">
       <div className="flex items-center justify-between mb-6">
@@ -59,10 +45,10 @@ export function BlockPage({
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Exercises Completed</CardTitle>
+            <CardTitle className="text-lg">TotalExercises</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold text-primary">47</p>
+            <p className="text-3xl font-bold text-primary">{exercisesCount}</p>
           </CardContent>
         </Card>
 
@@ -71,65 +57,7 @@ export function BlockPage({
             <CardTitle className="text-lg">Projects Showcased</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold text-primary">2</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="mt-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Exercises</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left p-4 font-semibold">Exercise Name</th>
-                    <th className="text-left p-4 font-semibold">Progress</th>
-                    <th className="text-left p-4 font-semibold">Last Interaction</th>
-                    <th className="text-left p-4 font-semibold">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {exercises.map((exercise) => (
-                    <tr key={exercise.name} className="border-b">
-                      <td className="p-4">{exercise.name}</td>
-                      <td className="p-4">
-                        <div className="flex items-center gap-2">
-                          <div className="w-48 h-2 bg-secondary rounded-full">
-                            <div
-                              className="h-2 bg-primary rounded-full"
-                              style={{ width: `${exercise.progress}%` }}
-                            />
-                          </div>
-                          <span className="text-sm text-muted-foreground">
-                            {exercise.progress}%
-                          </span>
-                        </div>
-                      </td>
-                      <td className="p-4 text-muted-foreground">
-                        {exercise.lastAccessed}
-                      </td>
-                      <td className="p-4">
-                        <div className="flex gap-2">
-                          <button className="text-primary hover:text-primary/80">
-                            <PlayCircle className="w-4 h-4" />
-                          </button>
-                          <button className="text-primary hover:text-primary/80">
-                            <RotateCw className="w-4 h-4" />
-                          </button>
-                          <button className="text-destructive hover:text-destructive/80">
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <p className="text-3xl font-bold text-primary">{projectsCount}</p>
           </CardContent>
         </Card>
       </div>
