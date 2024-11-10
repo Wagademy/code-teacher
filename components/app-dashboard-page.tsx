@@ -1,6 +1,14 @@
 import { PlayCircle, RotateCw, Trash2 } from 'lucide-react';
 
-export function BlockPage() {
+type BlockPageProps = {
+  chatsCount: number;
+  messagesCount: number;
+};
+
+export function BlockPage({
+  chatsCount,
+  messagesCount,
+}: BlockPageProps) {
   // Add mock data array
   const exercises = [
     {
@@ -27,14 +35,18 @@ export function BlockPage() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-700">
-            Messages with Tutor
+            Chats with Tutor
           </h2>
-          <p className="text-3xl text-green-500 font-bold mt-2">124</p>
+          <p className="text-3xl text-green-500 font-bold mt-2">
+            {chatsCount}
+          </p>
         </div>
 
         <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-lg font-semibold text-gray-700">Days Learning</h2>
-          <p className="text-3xl text-green-500 font-bold mt-2">14</p>
+          <h2 className="text-lg font-semibold text-gray-700">Total Messages</h2>
+          <p className="text-3xl text-green-500 font-bold mt-2">
+            {messagesCount}
+          </p>
         </div>
 
         <div className="bg-white rounded-lg shadow p-6">
@@ -46,7 +58,7 @@ export function BlockPage() {
 
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-700">
-            Projects Completed
+            Projects Showcased
           </h2>
           <p className="text-3xl text-green-500 font-bold mt-2">2</p>
         </div>

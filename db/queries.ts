@@ -1,7 +1,7 @@
 'server-only';
 
 import { genSaltSync, hashSync } from 'bcrypt-ts';
-import { and, asc, desc, eq, gt } from 'drizzle-orm';
+import { and, asc, desc, eq, gt, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 
@@ -275,6 +275,21 @@ export async function getSuggestionsByDocumentId({
     console.error(
       'Failed to get suggestions by document version from database'
     );
+    throw error;
+  }
+}
+
+export async function getMessagesCountByUserId({ userId }: { userId: string }) {
+  try {
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(message)
+      .innerJoin(chat, eq(message.chatId, chat.id))
+      .where(eq(chat.userId, userId));
+
+    return Number(result[0]?.count) || 0;
+  } catch (error) {
+    console.error('Failed to get messages count from database');
     throw error;
   }
 }
