@@ -61,11 +61,11 @@ export function ExercisePage({ exercise }: ExercisePageProps) {
         },
         body: JSON.stringify({
           exerciseId: exercise.id,
-          title: exercise.challenge,
+          title: exercise.title,
           description: exercise.description,
           challenge: exercise.challenge,
           lessonId: exercise.lessonId,
-          solution: answer,
+          solution: exercise.solution,
           feedback: exercise.feedback,
         }),
       });

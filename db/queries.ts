@@ -37,6 +37,15 @@ export async function getUser(email: string): Promise<Array<User>> {
   }
 }
 
+export async function getUserById({ id }: { id: string }) {
+  try {
+    return await db.select().from(user).where(eq(user.id, id));
+  } catch (error) {
+    console.error('Failed to get user by id from database');
+    throw error;
+  }
+}
+
 export async function createUser(email: string, password: string) {
   let salt = genSaltSync(10);
   let hash = hashSync(password, salt);
@@ -453,7 +462,11 @@ export async function updateExercise({
   }
 }
 
-export async function saveShowcase({ showcases }: { showcases: Array<Showcase> }) {
+export async function saveShowcase({
+  showcases,
+}: {
+  showcases: Array<Showcase>;
+}) {
   try {
     return await db.insert(showcase).values(showcases);
   } catch (error) {
@@ -462,14 +475,37 @@ export async function saveShowcase({ showcases }: { showcases: Array<Showcase> }
   }
 }
 
-export async function getShowcasesByUserId({ userId }: { userId: string }) {
+export async function getShowcasesByUserId({ id }: { id: string }) {
   try {
     return await db
       .select()
       .from(showcase)
-      .where(eq(showcase.userId, userId));
+      .where(eq(showcase.userId, id))
+      .orderBy(desc(showcase.createdAt));
   } catch (error) {
     console.error('Failed to get showcases by user id from database');
+    throw error;
+  }
+}
+
+export async function getShowcaseById({ id }: { id: string }) {
+  try {
+    const [result] = await db
+      .select()
+      .from(showcase)
+      .where(eq(showcase.id, id));
+    return result;
+  } catch (error) {
+    console.error('Failed to get showcase by id from database');
+    throw error;
+  }
+}
+
+export async function deleteShowcaseById({ id }: { id: string }) {
+  try {
+    return await db.delete(showcase).where(eq(showcase.id, id));
+  } catch (error) {
+    console.error('Failed to delete showcase by id from database');
     throw error;
   }
 }
