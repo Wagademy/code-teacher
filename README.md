@@ -5,7 +5,9 @@ AI Teacher prototype for coding courses for Wagademy
 ## Ideation for Meta Impact Hackathon
 
 **Project Title**: Wagademy Code Teacher
+
 **Problem Statement**: Beginners struggle to learn how to code due to lack of guidance and timely feedback. Quality paid tutors are very expensive.
+
 **Proposed Solution**: Create an AI-powered coding tutor that provides interactive lessons, real-time feedback, and personalized guidance for learning how to code.
 
 ## Key Features
