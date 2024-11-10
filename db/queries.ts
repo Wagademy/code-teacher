@@ -407,3 +407,16 @@ export async function getExercisesByLessonId({ id }: { id: string }) {
     throw error;
   }
 }
+
+export async function getExerciseById({ id }: { id: string }) {
+  try {
+    const [selectedExercise] = await db
+      .select()
+      .from(exercise)
+      .where(eq(exercise.id, id));
+    return selectedExercise;
+  } catch (error) {
+    console.error('Failed to get exercise by id from database');
+    throw error;
+  }
+}

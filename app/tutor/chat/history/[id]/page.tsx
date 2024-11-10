@@ -10,7 +10,8 @@ import { convertToUIMessages } from '@/lib/utils';
 
 export default async function Page(props: { params: Promise<any> }) {
   const params = await props.params;
-  const { id } = params;
+  /* @next-codemod-ignore */
+  const id = await params.id;
 
   const chat = await getChatById({ id });
 
