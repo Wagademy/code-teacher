@@ -4,6 +4,7 @@ export const authConfig = {
   pages: {
     signIn: '/login',
     newUser: '/',
+    signOut: '/home',
   },
   providers: [
     // added later in auth.ts since it requires bcrypt which is only compatible with Node.js
@@ -15,6 +16,11 @@ export const authConfig = {
       let isOnChat = nextUrl.pathname.startsWith('/');
       let isOnRegister = nextUrl.pathname.startsWith('/register');
       let isOnLogin = nextUrl.pathname.startsWith('/login');
+      let isOnHome = nextUrl.pathname.startsWith('/home');
+
+      if (isOnHome) {
+        return true;
+      }
 
       if (isLoggedIn && (isOnLogin || isOnRegister)) {
         return Response.redirect(new URL('/', nextUrl as unknown as URL));

@@ -1,4 +1,16 @@
- 
+import {
+  XCircle,
+  CheckCircle,
+  DollarSign,
+  BrainCircuit,
+} from 'lucide-react';
+
+export {
+  XCircle as XCircleIcon,
+  CheckCircle as CheckCircleIcon,
+  DollarSign as DollarSignIcon,
+  BrainCircuit as BrainCircuitIcon,
+};
 
 export function MortarBoardIcon(props: any) {
   return (
