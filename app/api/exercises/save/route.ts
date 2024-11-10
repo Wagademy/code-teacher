@@ -1,20 +1,26 @@
+import { generateText } from 'ai';
+
 import { customModel } from '@/ai';
 import { DEFAULT_MODEL_NAME } from '@/ai/models';
 import { auth } from '@/app/(auth)/auth';
 import { saveExercise } from '@/db/queries';
 import { Exercise } from '@/db/schema';
 import { generateUUID } from '@/lib/utils';
-import { generateText } from 'ai';
 
-async function retryGenerateText(params: any, maxRetries = 3, delay = 10000): Promise<any> {
+
+async function retryGenerateText(
+  params: any,
+  maxRetries = 3,
+  delay = 10000
+): Promise<any> {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      await new Promise(resolve => setTimeout(resolve, delay * attempt));
+      await new Promise((resolve) => setTimeout(resolve, delay * attempt));
       return await generateText(params);
     } catch (error: any) {
       console.log('Error generating text:', error);
       if (error.statusCode === 429 && attempt < maxRetries) {
-        await new Promise(resolve => setTimeout(resolve, delay * attempt));
+        await new Promise((resolve) => setTimeout(resolve, delay * attempt));
         continue;
       }
       throw error;

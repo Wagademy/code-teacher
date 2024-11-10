@@ -1,8 +1,10 @@
+import { generateObject } from 'ai';
+import { z } from 'zod';
+
 import { customModel } from '@/ai';
 import { DEFAULT_MODEL_NAME } from '@/ai/models';
 import { auth } from '@/app/(auth)/auth';
-import { generateObject } from 'ai';
-import { z } from 'zod';
+
 
 export async function POST(request: Request) {
   const session = await auth();

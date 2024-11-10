@@ -1,15 +1,19 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { toast } from 'sonner';
+
+import { ExercisesList } from '@/components/custom/exercises-list';
+import { GenerationProgress } from '@/components/custom/generation-progress';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Exercise, Lesson } from '@/db/schema';
-import { ExercisesList } from '@/components/custom/exercises-list';
-import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { GenerationProgress } from '@/components/custom/generation-progress';
-import ReactMarkdown from 'react-markdown';
+
+
+
 
 interface BlockPageProps {
   lesson: Lesson;

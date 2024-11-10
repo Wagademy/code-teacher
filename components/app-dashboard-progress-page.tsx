@@ -1,9 +1,11 @@
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+
+import { DeleteLessonButton } from '@/components/custom/delete-lesson-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Lesson } from '@/db/schema';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
-import { DeleteLessonButton } from '@/components/custom/delete-lesson-button';
+
 
 export function BlockPage({ lessons }: { lessons: Lesson[] }) {
   return (
@@ -33,9 +35,9 @@ export function BlockPage({ lessons }: { lessons: Lesson[] }) {
                   <div className="flex gap-2">
                     <Link
                       href={`/progress/lesson/${lesson.id}`}
-                      className="inline-flex items-center justify-center rounded-md text-sm font-medium h-9 w-9 bg-primary text-primary-foreground hover:bg-primary/90"
+                      className="inline-flex items-center justify-center rounded-md text-sm font-medium size-9 bg-primary text-primary-foreground hover:bg-primary/90"
                     >
-                      <ArrowRight className="h-4 w-4" />
+                      <ArrowRight className="size-4" />
                     </Link>
                     <DeleteLessonButton lessonId={lesson.id} />
                   </div>

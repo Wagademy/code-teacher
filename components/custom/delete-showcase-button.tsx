@@ -1,10 +1,10 @@
 'use client';
 
+import { Trash2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
-import { Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,6 +15,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 
 interface DeleteShowcaseButtonProps {
   showcaseId: string;
@@ -47,9 +48,9 @@ export function DeleteShowcaseButton({ showcaseId }: DeleteShowcaseButtonProps) 
         variant="outline"
         size="icon"
         onClick={() => setShowDeleteDialog(true)}
-        className="shrink-0 h-9 w-9 text-destructive hover:text-destructive hover:bg-destructive/10"
+        className="shrink-0 size-9 text-destructive hover:text-destructive hover:bg-destructive/10"
       >
-        <Trash2 className="h-4 w-4" />
+        <Trash2 className="size-4" />
       </Button>
 
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>

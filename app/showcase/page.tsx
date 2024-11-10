@@ -1,8 +1,10 @@
+import { notFound } from 'next/navigation';
+
 import { Layout } from '@/components/app-dashboard-layout';
 import { BlockPage } from '@/components/app-dashboard-showcase-page';
-import { auth } from '../(auth)/auth';
 import { getShowcasesByUserId } from '@/db/queries';
-import { notFound } from 'next/navigation';
+
+import { auth } from '../(auth)/auth';
 
 export default async function Page() {
   const session = await auth();

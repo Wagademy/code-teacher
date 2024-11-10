@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getShowcaseById, getUserById } from '@/db/queries';
+
 import {
   Card,
   CardContent,
@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { getShowcaseById, getUserById } from '@/db/queries';
 
 interface PageProps {
   params: Promise<{

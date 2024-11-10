@@ -1,7 +1,8 @@
-import { Progress } from '@/components/ui/progress';
 import { motion } from 'framer-motion';
 import { LoaderIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
+import { Progress } from '@/components/ui/progress';
 
 interface GenerationProgressProps {
   text: string;

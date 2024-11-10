@@ -1,9 +1,11 @@
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+
+import { auth } from '@/app/(auth)/auth';
 import { Layout } from '@/components/app-dashboard-layout';
 import { ExercisePage } from '@/components/custom/exercise-page';
-import { auth } from '@/app/(auth)/auth';
 import { getExerciseById, getLessonById } from '@/db/queries';
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
+
 
 interface PageProps {
   params: Promise<{

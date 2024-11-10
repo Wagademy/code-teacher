@@ -1,6 +1,7 @@
-import { Chat } from '@/db/schema';
 import Link from 'next/link';
+
 import { DeleteChatButton } from '@/components/custom/delete-chat-button';
+import { Chat } from '@/db/schema';
 
 export function BlockPage({ chats }: { chats: Chat[] }) {
   return (
@@ -8,7 +9,7 @@ export function BlockPage({ chats }: { chats: Chat[] }) {
       <div className="container mx-auto p-4">
         <h1 className="text-3xl font-bold mb-6">AI Tutor Chat</h1>
         <div className="flex flex-col items-center justify-center mt-8">
-          <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+          <div className="size-24 rounded-full bg-primary/10 flex items-center justify-center mb-6">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -17,7 +18,7 @@ export function BlockPage({ chats }: { chats: Chat[] }) {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="w-12 h-12 text-primary"
+              className="size-12 text-primary"
             >
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
@@ -77,7 +78,7 @@ export function BlockPage({ chats }: { chats: Chat[] }) {
             </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 stroke-current stroke-2"
+              className="size-4 stroke-current stroke-2"
               viewBox="0 0 24 24"
               fill="none"
             >

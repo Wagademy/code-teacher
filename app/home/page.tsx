@@ -1,7 +1,8 @@
 import Link from 'next/link';
+
+import { MortarBoardIcon, MessageCircleIcon, BarChartIcon, LayoutIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MortarBoardIcon, MessageCircleIcon, BarChartIcon, LayoutIcon } from '@/components/icons';
 
 export default function HomePage() {
   return (
@@ -10,7 +11,7 @@ export default function HomePage() {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="flex justify-center mb-6">
-            <MortarBoardIcon className="h-16 w-16 text-primary" />
+            <MortarBoardIcon className="size-16 text-primary" />
           </div>
           <h1 className="text-5xl font-bold mb-6">Wagademy Code Teacher</h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -96,7 +97,7 @@ function FeatureCard({ icon: Icon, title, description }: {
   return (
     <Card>
       <CardHeader>
-        <Icon className="h-8 w-8 text-primary mb-4" />
+        <Icon className="size-8 text-primary mb-4" />
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
@@ -113,7 +114,7 @@ function StepCard({ number, title, description }: {
 }) {
   return (
     <div className="flex flex-col items-center">
-      <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold mb-4">
+      <div className="size-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold mb-4">
         {number}
       </div>
       <h3 className="text-xl font-semibold mb-2">{title}</h3>

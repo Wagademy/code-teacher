@@ -1,10 +1,11 @@
-import { Exercise } from '@/db/schema';
-import { Button } from '@/components/ui/button';
 import { PlayCircle, RotateCw, Check } from 'lucide-react';
 import Link from 'next/link';
-import { Markdown } from '@/components/custom/markdown';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+
+import { Markdown } from '@/components/custom/markdown';
+import { Button } from '@/components/ui/button';
+import { Exercise } from '@/db/schema';
 
 interface ExercisesListProps {
   exercises: Exercise[];
@@ -64,7 +65,7 @@ export function ExercisesList({ exercises }: ExercisesListProps) {
                       size="icon"
                       className="text-green-600 hover:text-green-700"
                     >
-                      <PlayCircle className="h-4 w-4" />
+                      <PlayCircle className="size-4" />
                     </Button>
                   </Link>
                 </div>
@@ -95,7 +96,7 @@ export function ExercisesList({ exercises }: ExercisesListProps) {
                       size="icon"
                       className="text-green-600 hover:text-green-700"
                     >
-                      <Check className="h-4 w-4" />
+                      <Check className="size-4" />
                     </Button>
                   </Link>
                   <Button
@@ -104,7 +105,7 @@ export function ExercisesList({ exercises }: ExercisesListProps) {
                     className="text-blue-600 hover:text-blue-700"
                     onClick={() => handleReset(exercise.id)}
                   >
-                    <RotateCw className="h-4 w-4" />
+                    <RotateCw className="size-4" />
                   </Button>
                 </div>
               </div>

@@ -1,8 +1,8 @@
 import { cookies } from 'next/headers';
 
+import { Layout } from '@/components/app-dashboard-layout';
 import { AppSidebar } from '@/components/custom/app-sidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { Layout } from '@/components/app-dashboard-layout';
 
 import { auth } from '../../(auth)/auth';
 

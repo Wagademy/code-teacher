@@ -1,9 +1,11 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { toast } from 'sonner';
+import { useSWRConfig } from 'swr';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,8 +16,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { useState } from 'react';
-import { useSWRConfig } from 'swr';
+import { Button } from '@/components/ui/button';
 
 interface DeleteChatButtonProps {
   chatId: string;
@@ -53,7 +54,7 @@ export function DeleteChatButton({ chatId }: DeleteChatButtonProps) {
         onClick={() => setShowDeleteDialog(true)}
         className="shrink-0 h-full text-destructive hover:text-destructive hover:bg-destructive/10"
       >
-        <Trash2 className="h-4 w-4" />
+        <Trash2 className="size-4" />
       </Button>
 
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>

@@ -1,13 +1,14 @@
 'use client';
 
-import { Exercise } from '@/db/schema';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Markdown } from '@/components/custom/markdown';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
+import { Check } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { Check } from 'lucide-react';
+
+import { Markdown } from '@/components/custom/markdown';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
+import { Exercise } from '@/db/schema';
 import { cn } from '@/lib/utils';
 
 interface ExercisePageProps {
@@ -199,7 +200,7 @@ export function ExercisePage({ exercise }: ExercisePageProps) {
             <div className="space-y-4">
               <div className="p-4 rounded-lg border bg-green-50 dark:bg-green-950">
                 <div className="flex items-center gap-2 text-green-600">
-                  <Check className="h-5 w-5" />
+                  <Check className="size-5" />
                   <h4 className="font-medium">Successfully Completed!</h4>
                 </div>
                 {exercise.feedback && (
@@ -221,7 +222,7 @@ export function ExercisePage({ exercise }: ExercisePageProps) {
               >
                 {addedToShowcase ? (
                   <div className="flex items-center gap-2">
-                    <Check className="h-4 w-4" />
+                    <Check className="size-4" />
                     Added to Showcase
                   </div>
                 ) : (

@@ -1,3 +1,6 @@
+import Link from 'next/link';
+
+import { DeleteShowcaseButton } from '@/components/custom/delete-showcase-button';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -16,8 +19,6 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Showcase } from '@/db/schema';
-import { DeleteShowcaseButton } from '@/components/custom/delete-showcase-button';
-import Link from 'next/link';
 
 export function BlockPage({ showcases }: { showcases: Showcase[] }) {
   return (

@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { type User } from 'next-auth';
+
 import {
   MortarBoardIcon,
   LayoutDashboardIcon,
@@ -6,7 +8,7 @@ import {
   BarChartIcon,
   LayoutIcon,
 } from '@/components/icons';
-import { type User } from 'next-auth';
+
 import { SidebarUserNav } from './custom/sidebar-user-nav';
 import { SidebarProvider } from './ui/sidebar';
 
@@ -31,7 +33,7 @@ export async function Layout({
       <div className="flex w-48 flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
         <div className="p-4">
           <Link href="/" className="flex items-center space-x-2">
-            <MortarBoardIcon className="h-8 w-8 text-primary" />
+            <MortarBoardIcon className="size-8 text-primary" />
             <span className="text-xl font-bold text-primary">Code Teacher</span>
           </Link>
         </div>
@@ -42,7 +44,7 @@ export async function Layout({
               href={item.href}
               className={`flex items-center w-full mb-2 text-left hover:bg-green-100 dark:hover:bg-green-700 p-2 rounded-lg transition-colors duration-200 ${currentPath === item.href ? 'bg-green-100 dark:bg-green-700' : ''}`}
             >
-              <item.icon className="mr-2 h-4 w-4" />
+              <item.icon className="mr-2 size-4" />
               <span>{item.label}</span>
             </Link>
           ))}

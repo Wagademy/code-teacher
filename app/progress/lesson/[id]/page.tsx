@@ -1,9 +1,11 @@
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+
+import { auth } from "@/app/(auth)/auth";
 import { Layout } from "@/components/app-dashboard-layout";
 import { BlockPage } from "@/components/app-dashboard-lesson-page";
-import { auth } from "@/app/(auth)/auth";
 import { getLessonById, getExercisesByLessonId } from '@/db/queries';
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
+
 
 interface PageProps {
   params: Promise<{

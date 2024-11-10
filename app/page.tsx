@@ -1,6 +1,5 @@
 import { Layout } from '@/components/app-dashboard-layout';
 import { BlockPage } from '@/components/app-dashboard-page';
-import { auth } from './(auth)/auth';
 import {
   getMessagesCountByUserId,
   getChatsByUserId,
@@ -8,6 +7,8 @@ import {
   getExercisesCountByUserId,
   getProjectsCountByUserId,
 } from '@/db/queries';
+
+import { auth } from './(auth)/auth';
 
 export default async function DashboardPage() {
   const session = await auth();
