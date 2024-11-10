@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { generateUUID } from '@/lib/utils';
+import { GenerationProgress } from '@/components/custom/generation-progress';
 
 export function BlockPage() {
   const [description, setDescription] = useState('');
@@ -101,6 +102,12 @@ export function BlockPage() {
             >
               {isLoading ? 'Generating...' : 'Generate Lesson Plan'}
             </Button>
+
+            {isLoading && !preview && (
+              <div className="mt-4">
+                <GenerationProgress text="Generating your personalized lesson plan..." />
+              </div>
+            )}
 
             {preview && (
               <div className="space-y-4 border rounded-lg p-4 mt-4">

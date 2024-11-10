@@ -129,9 +129,11 @@ export const exercise = pgTable('Exercise', {
     .notNull()
     .references(() => lesson.id),
   createdAt: timestamp('createdAt').notNull(),
+  title: text('title').notNull(),
   explanation: text('explanation').notNull(),
   references: text('references').notNull(),
   challenge: text('challenge').notNull(),
+  description: text('description').notNull(),
   evaluationCriteria: text('evaluationCriteria').notNull(),
   isCompleted: boolean('isCompleted').notNull().default(false),
 });

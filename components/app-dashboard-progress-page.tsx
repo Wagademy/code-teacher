@@ -80,6 +80,7 @@ export function BlockPage({ lessons }: { lessons: Lesson[] }) {
                   </div>
                 </div>
               </CardContent>
+              
             </Card>
           ))}
         </div>
