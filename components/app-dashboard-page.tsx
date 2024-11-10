@@ -1,4 +1,5 @@
 import { PlayCircle, RotateCw, Trash2 } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 type BlockPageProps = {
   chatsCount: number;
@@ -13,7 +14,6 @@ export function BlockPage({
   topUsersByMessageCount,
   userEmail,
 }: BlockPageProps) {
-  // Add mock data array
   const exercises = [
     {
       name: 'JavaScript Basics',
@@ -34,145 +34,144 @@ export function BlockPage({
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-lg font-semibold text-gray-700">
-            Chats with Tutor
-          </h2>
-          <p className="text-3xl text-green-500 font-bold mt-2">{chatsCount}</p>
-        </div>
-
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-lg font-semibold text-gray-700">
-            Total Messages
-          </h2>
-          <p className="text-3xl text-green-500 font-bold mt-2">
-            {messagesCount}
-          </p>
-        </div>
-
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-lg font-semibold text-gray-700">
-            Exercises Completed
-          </h2>
-          <p className="text-3xl text-green-500 font-bold mt-2">47</p>
-        </div>
-
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-lg font-semibold text-gray-700">
-            Projects Showcased
-          </h2>
-          <p className="text-3xl text-green-500 font-bold mt-2">2</p>
-        </div>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold">Dashboard</h1>
       </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Chats with Tutor</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-3xl font-bold text-primary">{chatsCount}</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Total Messages</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-3xl font-bold text-primary">{messagesCount}</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Exercises Completed</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-3xl font-bold text-primary">47</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Projects Showcased</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-3xl font-bold text-primary">2</p>
+          </CardContent>
+        </Card>
+      </div>
+
       <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Recent Exercises</h2>
-        <div className="overflow-x-auto">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="text-center p-4 font-semibold text-gray-600">
-                    Exercise Name
-                  </th>
-                  <th className="text-center p-4 font-semibold text-gray-600">
-                    Progress
-                  </th>
-                  <th className="text-center p-4 font-semibold text-gray-600">
-                    Last Interaction
-                  </th>
-                  <th className="text-center p-4 font-semibold text-gray-600">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {exercises.map((exercise) => (
-                  <tr key={exercise.name} className="border-b border-gray-100">
-                    <td className="p-4 text-center text-gray-800">
-                      {exercise.name}
-                    </td>
-                    <td className="p-4 text-center items-center">
-                      <div className="flex flex-row text-center items-center justify-center">
-                        <div className="w-48 h-2 text-center bg-gray-200 rounded-full">
-                          <div
-                            className="h-2 text-center bg-green-500 rounded-full"
-                            style={{ width: `${exercise.progress}%` }}
-                          ></div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Exercises</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-4 font-semibold">Exercise Name</th>
+                    <th className="text-left p-4 font-semibold">Progress</th>
+                    <th className="text-left p-4 font-semibold">Last Interaction</th>
+                    <th className="text-left p-4 font-semibold">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {exercises.map((exercise) => (
+                    <tr key={exercise.name} className="border-b">
+                      <td className="p-4">{exercise.name}</td>
+                      <td className="p-4">
+                        <div className="flex items-center gap-2">
+                          <div className="w-48 h-2 bg-secondary rounded-full">
+                            <div
+                              className="h-2 bg-primary rounded-full"
+                              style={{ width: `${exercise.progress}%` }}
+                            />
+                          </div>
+                          <span className="text-sm text-muted-foreground">
+                            {exercise.progress}%
+                          </span>
                         </div>
-                        <span className="text-sm ml-2 text-center text-gray-600">
-                          {exercise.progress}%
-                        </span>
-                      </div>
-                    </td>
-                    <td className="p-4 text-center text-gray-600">
-                      {exercise.lastAccessed}
-                    </td>
-                    <td className="p-4 text-center">
-                      <button className="px-3 py-1 text-sm text-green-600 hover:text-green-700 inline-flex items-center gap-1">
-                        <PlayCircle className="w-4 h-4 inline" />
-                      </button>
-                      <button className="px-3 py-1 text-sm text-blue-600 hover:text-blue-700 inline-flex items-center gap-1">
-                        <RotateCw className="w-4 h-4 inline" />
-                      </button>
-                      <button className="px-3 py-1 text-sm text-red-600 hover:text-red-700 inline-flex items-center gap-1">
-                        <Trash2 className="w-4 h-4 inline" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                      </td>
+                      <td className="p-4 text-muted-foreground">
+                        {exercise.lastAccessed}
+                      </td>
+                      <td className="p-4">
+                        <div className="flex gap-2">
+                          <button className="text-primary hover:text-primary/80">
+                            <PlayCircle className="w-4 h-4" />
+                          </button>
+                          <button className="text-primary hover:text-primary/80">
+                            <RotateCw className="w-4 h-4" />
+                          </button>
+                          <button className="text-destructive hover:text-destructive/80">
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Top Users</h2>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-gray-100">
-                  <th className="text-left p-4 font-semibold text-gray-600">
-                    User
-                  </th>
-                  <th className="text-center p-4 font-semibold text-gray-600">
-                    Messages
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {topUsersByMessageCount.map((user, index) => (
-                  <tr
-                    key={user.email}
-                    className={`border-b border-gray-100 ${user.email === userEmail ? 'bg-green-200' : ''}`}
-                  >
-                    <td className="p-4 text-gray-800">
-                      <div className="flex items-center gap-3">
-                        {index === 0 && (
-                          <span className="text-yellow-500">🏆</span>
-                        )}
-                        {index === 1 && (
-                          <span className="text-gray-400">🥈</span>
-                        )}
-                        {index === 2 && (
-                          <span className="text-amber-600">🥉</span>
-                        )}
-                        {user.email}
-                      </div>
-                    </td>
-                    <td className="p-4 text-center text-gray-600">
-                      {user.messageCount}
-                    </td>
+        <Card>
+          <CardHeader>
+            <CardTitle>Top Users</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-4 font-semibold">User</th>
+                    <th className="text-left p-4 font-semibold">Messages</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                </thead>
+                <tbody>
+                  {topUsersByMessageCount.map((user, index) => (
+                    <tr
+                      key={user.email}
+                      className={`border-b ${user.email === userEmail ? 'bg-primary/10' : ''}`}
+                    >
+                      <td className="p-4">
+                        <div className="flex items-center gap-3">
+                          {index === 0 && <span>🏆</span>}
+                          {index === 1 && <span>🥈</span>}
+                          {index === 2 && <span>🥉</span>}
+                          {user.email}
+                        </div>
+                      </td>
+                      <td className="p-4 text-muted-foreground">
+                        {user.messageCount}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

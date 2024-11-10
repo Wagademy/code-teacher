@@ -32,7 +32,9 @@ CREATE TABLE IF NOT EXISTS "Exercise" (
 	"explanation" text NOT NULL,
 	"references" text NOT NULL,
 	"challenge" text NOT NULL,
-	"evaluationCriteria" text NOT NULL
+	"evaluationCriteria" text NOT NULL,
+	"solution" text,
+	"feedback" text
 );
 --> statement-breakpoint
 DO $$ BEGIN

@@ -136,6 +136,8 @@ export const exercise = pgTable('Exercise', {
   description: text('description').notNull(),
   evaluationCriteria: text('evaluationCriteria').notNull(),
   isCompleted: boolean('isCompleted').notNull().default(false),
+  solution: text('solution'),
+  feedback: text('feedback'),
 });
 
 export type Exercise = InferSelectModel<typeof exercise>;

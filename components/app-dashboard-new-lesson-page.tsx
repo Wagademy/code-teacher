@@ -83,25 +83,29 @@ export function BlockPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">
-                What would you like to learn?
-              </label>
-              <Textarea
-                placeholder="Describe what you want to learn. For example: I want to learn how to build a REST API with Node.js and Express"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="min-h-[100px]"
-              />
-            </div>
+            {!preview && (
+              <>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">
+                    What would you like to learn?
+                  </label>
+                  <Textarea
+                    placeholder="Describe what you want to learn. For example: I want to learn how to build a REST API with Node.js and Express"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="min-h-[100px]"
+                  />
+                </div>
 
-            <Button
-              onClick={handleSubmit}
-              disabled={!description || isLoading}
-              className="w-full"
-            >
-              {isLoading ? 'Generating...' : 'Generate Lesson Plan'}
-            </Button>
+                <Button
+                  onClick={handleSubmit}
+                  disabled={!description || isLoading}
+                  className="w-full"
+                >
+                  {isLoading ? 'Generating...' : 'Generate Lesson Plan'}
+                </Button>
+              </>
+            )}
 
             {isLoading && !preview && (
               <div className="mt-4">
@@ -114,7 +118,9 @@ export function BlockPage() {
                 <h3 className="font-medium">Preview</h3>
                 <div>
                   <p className="text-sm font-medium">Title</p>
-                  <p className="text-sm text-muted-foreground">{preview.title}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {preview.title}
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm font-medium">Objective</p>

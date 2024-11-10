@@ -66,26 +66,30 @@ export function BlockPage({ lesson, exercises }: BlockPageProps) {
     try {
       setIsGenerating(true);
       setProgress(0);
-      
+
       const totalExercises = preview.exercises.length;
-      
+
       for (let i = 0; i < preview.exercises.length; i++) {
         setCurrentExercise(preview.exercises[i].challenge);
-        const response = await fetch('/api/exercises/save', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            lessonId: lesson.id,
-            exercise: preview.exercises[i], // Save one exercise at a time
-          }),
-        });
+        try {
+          const response = await fetch('/api/exercises/save', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              lessonId: lesson.id,
+              exercise: preview.exercises[i], // Save one exercise at a time
+            }),
+          });
 
-        if (!response.ok) {
-          throw new Error('Failed to save exercises');
+          if (!response.ok) {
+            throw new Error('Failed to save exercises');
+          }
+        } catch (error) {
+          toast.error(`Failed to save exercise number ${i + 1}. Skipping...`);
         }
-        
+
         // Update progress after each exercise is saved
         setProgress(Math.round(((i + 1) / totalExercises) * 100));
       }
@@ -176,26 +180,21 @@ export function BlockPage({ lesson, exercises }: BlockPageProps) {
                           key={index}
                           className="border rounded-lg p-4 text-left"
                         >
-                          <h4 className="font-medium">
-                            <ReactMarkdown className="prose dark:prose-invert">
-                              {exercise.challenge}
-                            </ReactMarkdown>
-                          </h4>
-                          <div className="text-sm text-muted-foreground mt-1">
-                            <ReactMarkdown className="prose dark:prose-invert prose-sm">
-                              {exercise.explanation}
-                            </ReactMarkdown>
-                          </div>
+                          <h4 className="font-medium">{exercise.challenge}</h4>
+                          <p className="font-medium text-muted-foreground">
+                            {exercise.explanation}
+                          </p>
                         </div>
                       ))}
                     </div>
                     {isGenerating && (
                       <div className="mb-4">
-                        <GenerationProgress 
-                          text={currentExercise ? 
-                            `Saving exercise: ${currentExercise}...` : 
-                            'Preparing to save exercises...'
-                          } 
+                        <GenerationProgress
+                          text={
+                            currentExercise
+                              ? `Saving exercise: ${currentExercise}...`
+                              : 'Preparing to save exercises...'
+                          }
                         />
                         <Progress value={progress} className="w-full mt-2" />
                         <p className="text-sm text-muted-foreground text-center mt-1">

@@ -386,7 +386,11 @@ export async function getLessonById({ id }: { id: string }) {
   }
 }
 
-export async function saveExercise({ exercises }: { exercises: Array<Exercise> }) {
+export async function saveExercise({
+  exercises,
+}: {
+  exercises: Array<Exercise>;
+}) {
   try {
     return await db.insert(exercise).values(exercises);
   } catch (error) {
@@ -417,6 +421,32 @@ export async function getExerciseById({ id }: { id: string }) {
     return selectedExercise;
   } catch (error) {
     console.error('Failed to get exercise by id from database');
+    throw error;
+  }
+}
+
+export async function updateExercise({
+  id,
+  solution,
+  feedback,
+  isCompleted,
+}: {
+  id: string;
+  solution?: string;
+  feedback?: string;
+  isCompleted?: boolean;
+}) {
+  try {
+    return await db
+      .update(exercise)
+      .set({
+        solution,
+        feedback,
+        isCompleted,
+      })
+      .where(eq(exercise.id, id));
+  } catch (error) {
+    console.error('Failed to update exercise in database');
     throw error;
   }
 }

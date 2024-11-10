@@ -3,12 +3,39 @@ import { Button } from '@/components/ui/button';
 import { PlayCircle, RotateCw, Check } from 'lucide-react';
 import Link from 'next/link';
 import { Markdown } from '@/components/custom/markdown';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 interface ExercisesListProps {
   exercises: Exercise[];
 }
 
 export function ExercisesList({ exercises }: ExercisesListProps) {
+  const router = useRouter();
+
+  const handleReset = async (exerciseId: string) => {
+    try {
+      const response = await fetch('/api/exercises/reset', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          exerciseId,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to reset exercise');
+      }
+
+      toast.success('Exercise reset successfully');
+      router.refresh();
+    } catch (error) {
+      toast.error('Failed to reset exercise. Please try again.');
+    }
+  };
+
   const completedExercises = exercises.filter(
     (exercise) => exercise.isCompleted
   );
@@ -28,9 +55,7 @@ export function ExercisesList({ exercises }: ExercisesListProps) {
               >
                 <div className="flex-1">
                   <h3 className="font-medium">{exercise.title}</h3>
-                  <div className="text-sm text-muted-foreground prose prose-sm max-w-none">
-                    <Markdown>{exercise.description}</Markdown>
-                  </div>
+                  <Markdown>{exercise.description.split('\n')[0]}</Markdown>
                 </div>
                 <div className="flex items-center gap-2 ml-4">
                   <Link href={`/progress/exercise/${exercise.id}`}>
@@ -61,22 +86,23 @@ export function ExercisesList({ exercises }: ExercisesListProps) {
               >
                 <div className="flex-1">
                   <h3 className="font-medium">{exercise.title}</h3>
-                  <div className="text-sm text-muted-foreground prose prose-sm max-w-none">
-                    <Markdown>{exercise.description}</Markdown>
-                  </div>
+                  <Markdown>{exercise.description.split('\n')[0]}</Markdown>
                 </div>
                 <div className="flex items-center gap-2 ml-4">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="text-green-600 hover:text-green-700"
-                  >
-                    <Check className="h-4 w-4" />
-                  </Button>
+                  <Link href={`/progress/exercise/${exercise.id}`}>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="text-green-600 hover:text-green-700"
+                    >
+                      <Check className="h-4 w-4" />
+                    </Button>
+                  </Link>
                   <Button
                     variant="outline"
                     size="icon"
                     className="text-blue-600 hover:text-blue-700"
+                    onClick={() => handleReset(exercise.id)}
                   >
                     <RotateCw className="h-4 w-4" />
                   </Button>
