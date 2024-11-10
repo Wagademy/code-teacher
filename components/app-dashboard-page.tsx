@@ -3,11 +3,15 @@ import { PlayCircle, RotateCw, Trash2 } from 'lucide-react';
 type BlockPageProps = {
   chatsCount: number;
   messagesCount: number;
+  topUsersByMessageCount: { email: string; messageCount: number }[];
+  userEmail: string;
 };
 
 export function BlockPage({
   chatsCount,
   messagesCount,
+  topUsersByMessageCount,
+  userEmail,
 }: BlockPageProps) {
   // Add mock data array
   const exercises = [
@@ -37,13 +41,13 @@ export function BlockPage({
           <h2 className="text-lg font-semibold text-gray-700">
             Chats with Tutor
           </h2>
-          <p className="text-3xl text-green-500 font-bold mt-2">
-            {chatsCount}
-          </p>
+          <p className="text-3xl text-green-500 font-bold mt-2">{chatsCount}</p>
         </div>
 
         <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-lg font-semibold text-gray-700">Total Messages</h2>
+          <h2 className="text-lg font-semibold text-gray-700">
+            Total Messages
+          </h2>
           <p className="text-3xl text-green-500 font-bold mt-2">
             {messagesCount}
           </p>
@@ -66,60 +70,108 @@ export function BlockPage({
       <div className="mt-8">
         <h2 className="text-xl font-semibold mb-4">Recent Exercises</h2>
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse bg-white shadow rounded-lg">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-center p-4 font-semibold text-gray-600">
-                  Exercise Name
-                </th>
-                <th className="text-center p-4 font-semibold text-gray-600">
-                  Progress
-                </th>
-                <th className="text-center p-4 font-semibold text-gray-600">
-                  Last Interaction
-                </th>
-                <th className="text-center p-4 font-semibold text-gray-600">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {exercises.map((exercise) => (
-                <tr key={exercise.name} className="border-b border-gray-100">
-                  <td className="p-4 text-center text-gray-800">
-                    {exercise.name}
-                  </td>
-                  <td className="p-4 text-center items-center">
-                    <div className="flex flex-row text-center items-center justify-center">
-                      <div className="w-48 h-2 text-center bg-gray-200 rounded-full">
-                        <div
-                          className="h-2 text-center bg-green-500 rounded-full"
-                          style={{ width: `${exercise.progress}%` }}
-                        ></div>
-                      </div>
-                      <span className="text-sm ml-2 text-center text-gray-600">
-                        {exercise.progress}%
-                      </span>
-                    </div>
-                  </td>
-                  <td className="p-4 text-center text-gray-600">
-                    {exercise.lastAccessed}
-                  </td>
-                  <td className="p-4 text-center">
-                    <button className="px-3 py-1 text-sm text-green-600 hover:text-green-700 inline-flex items-center gap-1">
-                      <PlayCircle className="w-4 h-4 inline" />
-                    </button>
-                    <button className="px-3 py-1 text-sm text-blue-600 hover:text-blue-700 inline-flex items-center gap-1">
-                      <RotateCw className="w-4 h-4 inline" />
-                    </button>
-                    <button className="px-3 py-1 text-sm text-red-600 hover:text-red-700 inline-flex items-center gap-1">
-                      <Trash2 className="w-4 h-4 inline" />
-                    </button>
-                  </td>
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="text-center p-4 font-semibold text-gray-600">
+                    Exercise Name
+                  </th>
+                  <th className="text-center p-4 font-semibold text-gray-600">
+                    Progress
+                  </th>
+                  <th className="text-center p-4 font-semibold text-gray-600">
+                    Last Interaction
+                  </th>
+                  <th className="text-center p-4 font-semibold text-gray-600">
+                    Actions
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {exercises.map((exercise) => (
+                  <tr key={exercise.name} className="border-b border-gray-100">
+                    <td className="p-4 text-center text-gray-800">
+                      {exercise.name}
+                    </td>
+                    <td className="p-4 text-center items-center">
+                      <div className="flex flex-row text-center items-center justify-center">
+                        <div className="w-48 h-2 text-center bg-gray-200 rounded-full">
+                          <div
+                            className="h-2 text-center bg-green-500 rounded-full"
+                            style={{ width: `${exercise.progress}%` }}
+                          ></div>
+                        </div>
+                        <span className="text-sm ml-2 text-center text-gray-600">
+                          {exercise.progress}%
+                        </span>
+                      </div>
+                    </td>
+                    <td className="p-4 text-center text-gray-600">
+                      {exercise.lastAccessed}
+                    </td>
+                    <td className="p-4 text-center">
+                      <button className="px-3 py-1 text-sm text-green-600 hover:text-green-700 inline-flex items-center gap-1">
+                        <PlayCircle className="w-4 h-4 inline" />
+                      </button>
+                      <button className="px-3 py-1 text-sm text-blue-600 hover:text-blue-700 inline-flex items-center gap-1">
+                        <RotateCw className="w-4 h-4 inline" />
+                      </button>
+                      <button className="px-3 py-1 text-sm text-red-600 hover:text-red-700 inline-flex items-center gap-1">
+                        <Trash2 className="w-4 h-4 inline" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-8">
+        <h2 className="text-xl font-semibold mb-4">Top Users</h2>
+        <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-100">
+                  <th className="text-left p-4 font-semibold text-gray-600">
+                    User
+                  </th>
+                  <th className="text-center p-4 font-semibold text-gray-600">
+                    Messages
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {topUsersByMessageCount.map((user, index) => (
+                  <tr
+                    key={user.email}
+                    className={`border-b border-gray-100 ${user.email === userEmail ? 'bg-green-200' : ''}`}
+                  >
+                    <td className="p-4 text-gray-800">
+                      <div className="flex items-center gap-3">
+                        {index === 0 && (
+                          <span className="text-yellow-500">🏆</span>
+                        )}
+                        {index === 1 && (
+                          <span className="text-gray-400">🥈</span>
+                        )}
+                        {index === 2 && (
+                          <span className="text-amber-600">🥉</span>
+                        )}
+                        {user.email}
+                      </div>
+                    </td>
+                    <td className="p-4 text-center text-gray-600">
+                      {user.messageCount}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

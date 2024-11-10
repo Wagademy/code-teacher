@@ -293,3 +293,23 @@ export async function getMessagesCountByUserId({ userId }: { userId: string }) {
     throw error;
   }
 }
+
+export async function getTopUsersByMessageCount() {
+  try {
+    return await db
+      .select({
+        email: user.email,
+        messageCount: sql<number>`count(${message.id})`.as('message_count'),
+      })
+      .from(user)
+      .leftJoin(chat, eq(user.id, chat.userId))
+      .leftJoin(message, eq(chat.id, message.chatId))
+      .groupBy(user.email)
+      .orderBy(desc(sql`message_count`))
+      .limit(5);
+  } catch (error) {
+    console.error('Failed to get top users by message count from database');
+    throw error;
+  }
+}
+
