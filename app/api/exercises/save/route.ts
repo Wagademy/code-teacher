@@ -4,10 +4,9 @@ import { auth } from '@/app/(auth)/auth';
 import { saveExercise } from '@/db/queries';
 import { Exercise } from '@/db/schema';
 import { generateUUID } from '@/lib/utils';
-import { generateObject, generateText } from 'ai';
-import { z } from 'zod';
+import { generateText } from 'ai';
 
-async function retryGenerateText(params: any, maxRetries = 3, delay = 5000): Promise<any> {
+async function retryGenerateText(params: any, maxRetries = 3, delay = 10000): Promise<any> {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       await new Promise(resolve => setTimeout(resolve, delay * attempt));
