@@ -6,12 +6,13 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function Page(props: PageProps) {
+  const params = await props.params;
   const session = await auth();
   const id = await params.id;
 

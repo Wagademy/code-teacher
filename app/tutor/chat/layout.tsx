@@ -13,7 +13,7 @@ export default async function ChatLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [session, cookieStore] = await Promise.all([auth(), cookies()]);
+  const [session, cookieStore] = await Promise.all([auth(), await cookies()]);
   const isCollapsed = cookieStore.get('sidebar:state')?.value !== 'true';
   return (
     <Layout user={session?.user} currentPath="/tutor">
