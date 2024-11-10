@@ -8,22 +8,6 @@ interface GenerationProgressProps {
 }
 
 export function GenerationProgress({ text }: GenerationProgressProps) {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) => {
-        if (prevProgress >= 100) {
-          return 0;
-        }
-        return prevProgress + 2;
-      });
-    }, 100);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
 
   return (
     <div className="w-full space-y-4">
@@ -39,7 +23,6 @@ export function GenerationProgress({ text }: GenerationProgressProps) {
           {text}
         </motion.div>
       </div>
-      <Progress value={progress} className="w-full" />
     </div>
   );
 }

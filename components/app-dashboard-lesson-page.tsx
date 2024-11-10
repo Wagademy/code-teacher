@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { GenerationProgress } from '@/components/custom/generation-progress';
+import ReactMarkdown from 'react-markdown';
 
 interface BlockPageProps {
   lesson: Lesson;
@@ -18,6 +20,8 @@ export function BlockPage({ lesson, exercises }: BlockPageProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [preview, setPreview] = useState<any>(null);
   const router = useRouter();
+  const [progress, setProgress] = useState(0);
+  const [currentExercise, setCurrentExercise] = useState('');
 
   // Calculate progress metrics
   const totalExercises = exercises.length;
@@ -61,19 +65,29 @@ export function BlockPage({ lesson, exercises }: BlockPageProps) {
   const handleConfirm = async () => {
     try {
       setIsGenerating(true);
-      const response = await fetch('/api/exercises/save', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          lessonId: lesson.id,
-          exercises: preview.exercises,
-        }),
-      });
+      setProgress(0);
+      
+      const totalExercises = preview.exercises.length;
+      
+      for (let i = 0; i < preview.exercises.length; i++) {
+        setCurrentExercise(preview.exercises[i].challenge);
+        const response = await fetch('/api/exercises/save', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            lessonId: lesson.id,
+            exercise: preview.exercises[i], // Save one exercise at a time
+          }),
+        });
 
-      if (!response.ok) {
-        throw new Error('Failed to save exercises');
+        if (!response.ok) {
+          throw new Error('Failed to save exercises');
+        }
+        
+        // Update progress after each exercise is saved
+        setProgress(Math.round(((i + 1) / totalExercises) * 100));
       }
 
       toast.success('Exercises created successfully!');
@@ -82,6 +96,8 @@ export function BlockPage({ lesson, exercises }: BlockPageProps) {
       toast.error('Failed to save exercises. Please try again.');
     } finally {
       setIsGenerating(false);
+      setCurrentExercise('');
+      setProgress(0);
     }
   };
 
@@ -160,13 +176,33 @@ export function BlockPage({ lesson, exercises }: BlockPageProps) {
                           key={index}
                           className="border rounded-lg p-4 text-left"
                         >
-                          <h4 className="font-medium">{exercise.challenge}</h4>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            {exercise.explanation}
-                          </p>
+                          <h4 className="font-medium">
+                            <ReactMarkdown className="prose dark:prose-invert">
+                              {exercise.challenge}
+                            </ReactMarkdown>
+                          </h4>
+                          <div className="text-sm text-muted-foreground mt-1">
+                            <ReactMarkdown className="prose dark:prose-invert prose-sm">
+                              {exercise.explanation}
+                            </ReactMarkdown>
+                          </div>
                         </div>
                       ))}
                     </div>
+                    {isGenerating && (
+                      <div className="mb-4">
+                        <GenerationProgress 
+                          text={currentExercise ? 
+                            `Saving exercise: ${currentExercise}...` : 
+                            'Preparing to save exercises...'
+                          } 
+                        />
+                        <Progress value={progress} className="w-full mt-2" />
+                        <p className="text-sm text-muted-foreground text-center mt-1">
+                          {progress}% Complete
+                        </p>
+                      </div>
+                    )}
                     <div className="flex gap-4">
                       <Button
                         onClick={handleGenerateExercises}

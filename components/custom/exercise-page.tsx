@@ -1,5 +1,6 @@
 import { Exercise } from '@/db/schema';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Markdown } from '@/components/custom/markdown';
 
 interface ExercisePageProps {
   exercise: Exercise;
@@ -14,7 +15,9 @@ export function ExercisePage({ exercise }: ExercisePageProps) {
           <CardTitle>Description</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">{exercise.description}</p>
+          <div className="text-muted-foreground prose prose-sm max-w-none">
+            <Markdown>{exercise.description}</Markdown>
+          </div>
         </CardContent>
       </Card>
 
@@ -24,7 +27,9 @@ export function ExercisePage({ exercise }: ExercisePageProps) {
           <CardTitle>Challenge</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">{exercise.challenge}</p>
+          <div className="text-muted-foreground prose prose-sm max-w-none">
+            <Markdown>{exercise.challenge}</Markdown>
+          </div>
         </CardContent>
       </Card>
 
@@ -34,7 +39,9 @@ export function ExercisePage({ exercise }: ExercisePageProps) {
           <CardTitle>Explanation</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground whitespace-pre-wrap">{exercise.explanation}</p>
+          <div className="text-muted-foreground prose prose-sm max-w-none">
+            <Markdown>{exercise.explanation}</Markdown>
+          </div>
         </CardContent>
       </Card>
 
@@ -44,7 +51,9 @@ export function ExercisePage({ exercise }: ExercisePageProps) {
           <CardTitle>Completion Criteria</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground whitespace-pre-wrap">{exercise.evaluationCriteria}</p>
+          <div className="text-muted-foreground prose prose-sm max-w-none">
+            <Markdown>{exercise.evaluationCriteria}</Markdown>
+          </div>
         </CardContent>
       </Card>
 
@@ -54,7 +63,9 @@ export function ExercisePage({ exercise }: ExercisePageProps) {
           <CardTitle>References</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground whitespace-pre-wrap">{exercise.references}</p>
+          <div className="text-muted-foreground prose prose-sm max-w-none">
+            <Markdown>{exercise.references}</Markdown>
+          </div>
         </CardContent>
       </Card>
     </div>

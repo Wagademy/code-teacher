@@ -2,13 +2,16 @@ import { Exercise } from '@/db/schema';
 import { Button } from '@/components/ui/button';
 import { PlayCircle, RotateCw, Check } from 'lucide-react';
 import Link from 'next/link';
+import { Markdown } from '@/components/custom/markdown';
 
 interface ExercisesListProps {
   exercises: Exercise[];
 }
 
 export function ExercisesList({ exercises }: ExercisesListProps) {
-  const completedExercises = exercises.filter((exercise) => exercise.isCompleted);
+  const completedExercises = exercises.filter(
+    (exercise) => exercise.isCompleted
+  );
   const nextExercises = exercises.filter((exercise) => !exercise.isCompleted);
 
   return (
@@ -25,9 +28,9 @@ export function ExercisesList({ exercises }: ExercisesListProps) {
               >
                 <div className="flex-1">
                   <h3 className="font-medium">{exercise.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {exercise.description}
-                  </p>
+                  <div className="text-sm text-muted-foreground prose prose-sm max-w-none">
+                    <Markdown>{exercise.description}</Markdown>
+                  </div>
                 </div>
                 <div className="flex items-center gap-2 ml-4">
                   <Link href={`/progress/exercise/${exercise.id}`}>
@@ -58,9 +61,9 @@ export function ExercisesList({ exercises }: ExercisesListProps) {
               >
                 <div className="flex-1">
                   <h3 className="font-medium">{exercise.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {exercise.description}
-                  </p>
+                  <div className="text-sm text-muted-foreground prose prose-sm max-w-none">
+                    <Markdown>{exercise.description}</Markdown>
+                  </div>
                 </div>
                 <div className="flex items-center gap-2 ml-4">
                   <Button
