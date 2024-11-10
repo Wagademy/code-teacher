@@ -55,3 +55,16 @@ Generate a web application frontend for Wagademy Code Teacher with the following
 Initial UI design built with V0: <https://v0.dev/chat/iQmlgpeVsZA>
 
 Application built with Next.js, Tailwind CSS, Shadcn UI, and Vercel AI SDK.
+
+## Final project
+
+Deployment: <https://ai-code-teacher.wagademy.com/home>
+
+Demo cideo: <https://youtu.be/w5rALx_jv90>
+
+## Contact
+
+Email: <mailto:matheus@ventureminer.com>
+
+Socials: <https://www.linkedin.com/in/mdpagani/>
+
