@@ -37,6 +37,16 @@ CREATE TABLE IF NOT EXISTS "Exercise" (
 	"feedback" text
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "Showcase" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"createdAt" timestamp NOT NULL,
+	"title" text NOT NULL,
+	"challenge" text NOT NULL,
+	"solution" text NOT NULL,
+	"feedback" text NOT NULL,
+	"userId" uuid NOT NULL
+);
+--> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "Chat" ADD CONSTRAINT "Chat_userId_User_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."User"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
@@ -51,6 +61,12 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "Exercise" ADD CONSTRAINT "Exercise_lessonId_Lesson_id_fk" FOREIGN KEY ("lessonId") REFERENCES "public"."Lesson"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "Showcase" ADD CONSTRAINT "Lesson_userId_User_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."User"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

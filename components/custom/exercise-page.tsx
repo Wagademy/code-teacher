@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { Check } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface ExercisePageProps {
   exercise: Exercise & { isCompleted: boolean };
@@ -17,6 +18,7 @@ export function ExercisePage({ exercise }: ExercisePageProps) {
   const [answer, setAnswer] = useState('');
   const [feedback, setFeedback] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [addedToShowcase, setAddedToShowcase] = useState(false);
 
   const handleSubmit = async () => {
     try {
@@ -47,6 +49,35 @@ export function ExercisePage({ exercise }: ExercisePageProps) {
       toast.error('Failed to evaluate exercise. Please try again.');
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleAddToShowcase = async () => {
+    try {
+      const response = await fetch('/api/showcase/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          exerciseId: exercise.id,
+          title: exercise.challenge,
+          description: exercise.description,
+          challenge: exercise.challenge,
+          lessonId: exercise.lessonId,
+          solution: answer,
+          feedback: exercise.feedback,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add to showcase');
+      }
+
+      toast.success('Added to showcase successfully!');
+      setAddedToShowcase(true);
+    } catch (error) {
+      toast.error('Failed to add to showcase. Please try again.');
     }
   };
 
@@ -179,10 +210,30 @@ export function ExercisePage({ exercise }: ExercisePageProps) {
               </div>
               <Button
                 variant="outline"
+                onClick={handleAddToShowcase}
+                disabled={addedToShowcase}
+                className={cn(
+                  "w-full",
+                  addedToShowcase 
+                    ? "bg-green-50 border-green-200 text-green-600 dark:bg-green-950 dark:border-green-800" 
+                    : ""
+                )}
+              >
+                {addedToShowcase ? (
+                  <div className="flex items-center gap-2">
+                    <Check className="h-4 w-4" />
+                    Added to Showcase
+                  </div>
+                ) : (
+                  'Add to Showcase'
+                )}
+              </Button>
+              <Button
+                variant="ghost"
                 onClick={() => window.history.back()}
                 className="w-full"
               >
-                Return to Previous Page
+                {"< "} Return to Previous Page
               </Button>
             </div>
           </CardContent>

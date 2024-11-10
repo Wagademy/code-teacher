@@ -141,3 +141,17 @@ export const exercise = pgTable('Exercise', {
 });
 
 export type Exercise = InferSelectModel<typeof exercise>;
+
+export const showcase = pgTable('Showcase', {
+  id: uuid('id').primaryKey().notNull().defaultRandom(),
+  createdAt: timestamp('createdAt').notNull(),
+  title: text('title').notNull(),
+  challenge: text('challenge').notNull(),
+  solution: text('solution').notNull(),
+  feedback: text('feedback').notNull(),
+  userId: uuid('userId')
+    .notNull()
+    .references(() => user.id),
+});
+
+export type Showcase = InferSelectModel<typeof showcase>;

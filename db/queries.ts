@@ -18,6 +18,8 @@ import {
   lesson,
   exercise,
   Exercise,
+  showcase,
+  Showcase,
 } from './schema';
 
 // Optionally, if not using email/pass login, you can
@@ -447,6 +449,27 @@ export async function updateExercise({
       .where(eq(exercise.id, id));
   } catch (error) {
     console.error('Failed to update exercise in database');
+    throw error;
+  }
+}
+
+export async function saveShowcase({ showcases }: { showcases: Array<Showcase> }) {
+  try {
+    return await db.insert(showcase).values(showcases);
+  } catch (error) {
+    console.error('Failed to save showcases in database');
+    throw error;
+  }
+}
+
+export async function getShowcasesByUserId({ userId }: { userId: string }) {
+  try {
+    return await db
+      .select()
+      .from(showcase)
+      .where(eq(showcase.userId, userId));
+  } catch (error) {
+    console.error('Failed to get showcases by user id from database');
     throw error;
   }
 }
