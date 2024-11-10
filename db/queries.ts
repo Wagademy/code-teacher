@@ -15,6 +15,9 @@ import {
   Message,
   message,
   vote,
+  lesson,
+  exercise,
+  Exercise,
 } from './schema';
 
 // Optionally, if not using email/pass login, you can
@@ -313,3 +316,94 @@ export async function getTopUsersByMessageCount() {
   }
 }
 
+export async function saveLesson({
+  id,
+  userId,
+  title,
+  objective,
+  skills,
+  topics,
+  description,
+}: {
+  id: string;
+  userId: string;
+  title: string;
+  objective: string;
+  skills: string[];
+  topics: string[];
+  description: string;
+}) {
+  try {
+    return await db.insert(lesson).values({
+      id,
+      createdAt: new Date(),
+      userId,
+      title,
+      objective,
+      skills,
+      topics,
+      description,
+    });
+  } catch (error) {
+    console.error('Failed to save lesson in database');
+    throw error;
+  }
+}
+
+export async function deleteLessonById({ id }: { id: string }) {
+  try {
+    await db.delete(exercise).where(eq(exercise.lessonId, id));
+    await db.delete(lesson).where(eq(lesson.id, id));
+  } catch (error) {
+    console.error('Failed to delete chat by id from database');
+    throw error;
+  }
+}
+
+export async function getLessonsByUserId({ userId }: { userId: string }) {
+  try {
+    return await db
+      .select()
+      .from(lesson)
+      .where(eq(lesson.userId, userId))
+      .orderBy(desc(lesson.createdAt));
+  } catch (error) {
+    console.error('Failed to get lessons from database');
+    throw error;
+  }
+}
+
+export async function getLessonById({ id }: { id: string }) {
+  try {
+    const [selectedLesson] = await db
+      .select()
+      .from(lesson)
+      .where(eq(lesson.id, id));
+    return selectedLesson;
+  } catch (error) {
+    console.error('Failed to get lesson by id from database');
+    throw error;
+  }
+}
+
+export async function saveExercise({ exercises }: { exercises: Array<Exercise> }) {
+  try {
+    return await db.insert(exercise).values(exercises);
+  } catch (error) {
+    console.error('Failed to save exercises in database', error);
+    throw error;
+  }
+}
+
+export async function getExercisesByLessonId({ id }: { id: string }) {
+  try {
+    return await db
+      .select()
+      .from(exercise)
+      .where(eq(exercise.lessonId, id))
+      .orderBy(asc(exercise.createdAt));
+  } catch (error) {
+    console.error('Failed to get exercises by lesson id from database', error);
+    throw error;
+  }
+}

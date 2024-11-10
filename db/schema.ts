@@ -107,3 +107,33 @@ export const suggestion = pgTable(
 );
 
 export type Suggestion = InferSelectModel<typeof suggestion>;
+
+export const lesson = pgTable('Lesson', {
+  id: uuid('id').primaryKey().notNull().defaultRandom(),
+  createdAt: timestamp('createdAt').notNull(),
+  title: text('title').notNull(),
+  userId: uuid('userId')
+    .notNull()
+    .references(() => user.id),
+  objective: text('objective').notNull(),
+  skills: json('skills').$type<string[]>().notNull(),
+  topics: json('topics').$type<string[]>().notNull(),
+  description: text('description').notNull(),
+});
+
+export type Lesson = InferSelectModel<typeof lesson>;
+
+export const exercise = pgTable('Exercise', {
+  id: uuid('id').primaryKey().notNull().defaultRandom(),
+  lessonId: uuid('lessonId')
+    .notNull()
+    .references(() => lesson.id),
+  createdAt: timestamp('createdAt').notNull(),
+  explanation: text('explanation').notNull(),
+  references: text('references').notNull(),
+  challenge: text('challenge').notNull(),
+  evaluationCriteria: text('evaluationCriteria').notNull(),
+  isCompleted: boolean('isCompleted').notNull().default(false),
+});
+
+export type Exercise = InferSelectModel<typeof exercise>;
