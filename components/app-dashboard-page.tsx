@@ -46,7 +46,7 @@ export function BlockPage({
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">TotalExercises</CardTitle>
+            <CardTitle className="text-lg">Total Exercises</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold text-primary">{exercisesCount}</p>
